@@ -30,7 +30,7 @@ module DataAnon
     class BaseTable
 
       def self.create_table  database, table_name, primary_keys = []
-        klass_name = table_name.to_s.downcase.capitalize
+        klass_name = table_name.to_s.downcase.capitalize.delete('\-.:')
         return database.const_get klass_name if database.const_defined? klass_name
         database.const_set(klass_name, Class.new(database) do
             self.table_name = table_name
