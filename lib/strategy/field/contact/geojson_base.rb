@@ -11,7 +11,7 @@ module DataAnon
           self.new DataAnon::Utils::Resource.file('UK_addresses.geojson')
         end
 
-        def initialize file_path
+        def initialize file_path = DataAnon::Utils::Resource.file('US_addresses.geojson')
           raise "Load and set the @values member variable in constructor"
         end
 

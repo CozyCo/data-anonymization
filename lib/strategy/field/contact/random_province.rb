@@ -6,6 +6,10 @@ module DataAnon
       # The large data set can be downloaded from [here](http://www.infochimps.com/datasets/simplegeo-places-dump)
       #
       #    !!!ruby
+      #    # Use the US region by default
+      #    anonymize('Address').using FieldStrategy::RandomProvince.new()
+      #
+      #    !!!ruby
       #    anonymize('Province').using FieldStrategy::RandomProvince.region_US
       #
       #    !!!ruby
@@ -17,7 +21,7 @@ module DataAnon
 
       class RandomProvince < GeojsonBase
 
-        def initialize file_path
+        def initialize file_path = DataAnon::Utils::Resource.file('US_addresses.geojson')
           @values = DataAnon::Utils::GeojsonParser.province(file_path)
         end
 
