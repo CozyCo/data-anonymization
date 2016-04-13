@@ -46,7 +46,7 @@ module DataAnon
           @execution_strategy.new.anonymize @tables
         rescue => e
           logger.error(e.message)
-          logger.debug(e.backtrace.join("\n\t"))
+          logger.debug(e.backtrace.unshift('Backtrace:').join("\n\t"))
         end
         if @strategy.whitelist?
           logger.info("Fields missing the anonymization strategy")
@@ -65,7 +65,7 @@ module DataAnon
             table.process
           rescue => e
             logger.error(e.message)
-            logger.debug(e.backtrace.join("\n\t"))
+            logger.debug(e.backtrace.unshift('Backtrace:').join("\n\t"))
           end
         end
       end

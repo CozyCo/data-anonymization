@@ -12,6 +12,7 @@ module DataAnon
       def log_error record, exception
         @errors << { :record => record, :exception => exception}
         logger.error(exception)
+        logger.debug(exception.backtrace.unshift('Backtrace:').join("\n\t"))
         raise "Reached limit of error for a table" if @errors.length > 100
       end
 

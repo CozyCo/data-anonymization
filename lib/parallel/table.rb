@@ -11,7 +11,7 @@ module DataAnon
             table.process
           rescue => e
             logger.error(e.message)
-            logger.debug(e.backtrace.join("\n\t"))
+            logger.debug(e.backtrace.unshift('Backtrace:').join("\n\t"))
           end
         end
       end
