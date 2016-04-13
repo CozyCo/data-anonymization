@@ -10,7 +10,8 @@ module DataAnon
             table.progress_bar_class DataAnon::Utils::ParallelProgressBar
             table.process
           rescue => e
-            logger.error "\n#{e.message} \n #{e.backtrace}"
+            logger.error(e.message)
+            logger.debug(e.backtrace.join("\n\t"))
           end
         end
       end

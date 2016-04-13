@@ -11,6 +11,7 @@ module DataAnon
 
       def log_error record, exception
         @errors << { :record => record, :exception => exception}
+        logger.error(exception)
         raise "Reached limit of error for a table" if @errors.length > 100
       end
 
@@ -18,13 +19,9 @@ module DataAnon
         @errors
       end
 
-      def print
+      def print_summary
         return if @errors.length == 0
-        logger.error("Errors while processing table '#{@table_name}':")
-        @errors.each do |error|
-          logger.error(error[:exception])
-          logger.error(error[:exception].backtrace.join("\n\t"))
-        end
+        logger.error("Errors while processing table '#{@table_name}': #{@errors.length}")
       end
 
     end
