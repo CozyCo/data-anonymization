@@ -49,6 +49,12 @@ module DataAnon
         @continue_block = block
       end
 
+      def only_ids ids
+        @only_ids_block = Proc.new do |index, record|
+          !ids || ids.include?(record['id'])
+        end
+      end
+
       def anonymize *fields, &block
         if block.nil?
           fields.each { |f| @fields[f] = DataAnon::Strategy::Field::DefaultAnon.new(@user_strategies) }
@@ -144,6 +150,7 @@ module DataAnon
       def process_record_if index, record
         return if @skip_block && @skip_block.call(index, record)
         return if @continue_block && !@continue_block.call(index, record)
+        return if @only_ids_block && !@only_ids_block.call(index, record)
 
         process_record index, record
       end
